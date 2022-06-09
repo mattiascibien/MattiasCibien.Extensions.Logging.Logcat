@@ -12,15 +12,17 @@ namespace MattiasCibien.Extensions.Logging.Logcat
     public sealed class LogcatLogger : ILogger
     {
         private readonly string _categoryName;
+        private readonly string _tag;
 
-        public LogcatLogger(string categoryName)
+        public LogcatLogger(string tag, string categoryName)
         {
+            _tag = tag;
             _categoryName = categoryName;
         }
 
         public IDisposable BeginScope<TState>(TState state) => default!;
 
-        public bool IsEnabled(LogLevel logLevel) => AndroidLog.IsLoggable(_categoryName, MapLogLevel(logLevel));
+        public bool IsEnabled(LogLevel logLevel) => AndroidLog.IsLoggable(_tag, MapLogLevel(logLevel));
 
         private static Android.Util.LogPriority MapLogLevel(LogLevel logLevel)
         {
@@ -50,25 +52,25 @@ namespace MattiasCibien.Extensions.Logging.Logcat
             switch (logLevel)
             {
                 case LogLevel.Trace:
-                    AndroidLog.Verbose(_categoryName, formatter(state, exception));
+                    AndroidLog.Verbose(_tag, $"[{_categoryName}] {formatter(state, exception)}");
                     break;
                 case LogLevel.Debug:
-                    AndroidLog.Debug(_categoryName, formatter(state, exception));
+                    AndroidLog.Debug(_tag, $"[{_categoryName}] {formatter(state, exception)}");
                     break;
                 case LogLevel.Information:
-                    AndroidLog.Info(_categoryName, formatter(state, exception));
+                    AndroidLog.Info(_tag, $"[{_categoryName}] {formatter(state, exception)}");
                     break;
                 case LogLevel.Warning:
-                    AndroidLog.Warn(_categoryName, formatter(state, exception));
+                    AndroidLog.Warn(_tag, $"[{_categoryName}] {formatter(state, exception)}");
                     break;
                 case LogLevel.Error:
-                    AndroidLog.Error(_categoryName, formatter(state, exception));
+                    AndroidLog.Error(_tag, $"[{_categoryName}] {formatter(state, exception)}");
                     break;
                 case LogLevel.Critical:
-                    AndroidLog.Error(_categoryName, formatter(state, exception));
+                    AndroidLog.Error(_tag, $"[{_categoryName}] {formatter(state, exception)}");
                     break;
                 case LogLevel.None:
-                    AndroidLog.Info(_categoryName, formatter(state, exception));
+                    AndroidLog.Info(_tag, $"[{_categoryName}] {formatter(state, exception)}");
                     break;
                 default:
                     break;
