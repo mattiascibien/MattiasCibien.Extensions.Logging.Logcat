@@ -7,7 +7,7 @@ namespace MattiasCibien.Extensions.Logging.Logcat
     [UnsupportedOSPlatform("windows")]
     [UnsupportedOSPlatform("browser")]
     [UnsupportedOSPlatform("ios")]
-    [ProviderAlias("ColorConsole")]
+    [ProviderAlias("Logcat")]
     internal class LogcatLoggerProvider : ILoggerProvider
     {
         private readonly ConcurrentDictionary<string, LogcatLogger> _loggers = new(StringComparer.OrdinalIgnoreCase);
