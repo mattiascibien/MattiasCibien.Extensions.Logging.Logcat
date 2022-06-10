@@ -31,4 +31,7 @@ jobs:
       with:
         name: Package
         path: ./MattiasCibien.Extensions.Logging.Logcat/bin/Release/*.*nupkg
-
+    - name: Publish to NuGet
+      run: dotnet nuget push ./MattiasCibien.Extensions.Logging.Logcat/bin/Release/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_KEY }}
+    - name: Publish Symbols to NuGet
+      run: dotnet nuget push ./MattiasCibien.Extensions.Logging.Logcat/bin/Release/*.snupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_KEY }}
