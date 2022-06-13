@@ -28,7 +28,7 @@ using MattiasCibien.Extensions.Logging.Logcat;
 
 builder.Services.AddLogging(configure =>
 {
-  #if ANDROID
+	#if ANDROID
 	configure.AddLogcat(nameof(MyApp));
 	#endif
 });
